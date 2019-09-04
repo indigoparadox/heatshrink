@@ -3,14 +3,14 @@
 
 /* Should functionality assuming dynamic allocation be used? */
 #ifndef HEATSHRINK_DYNAMIC_ALLOC
+#ifdef C99
 #define HEATSHRINK_DYNAMIC_ALLOC 1
+#else
+#define HEATSHRINK_DYNAMIC_ALLOC 0
+#endif /* C99 */
 #endif
 
-#if HEATSHRINK_DYNAMIC_ALLOC
-    /* Optional replacement of malloc/free */
-    #define HEATSHRINK_MALLOC(SZ) malloc(SZ)
-    #define HEATSHRINK_FREE(P, SZ) free(P)
-#else
+#if !HEATSHRINK_DYNAMIC_ALLOC
     /* Required parameters for static configuration */
     #define HEATSHRINK_STATIC_INPUT_BUFFER_SIZE 32
     #define HEATSHRINK_STATIC_WINDOW_BITS 8
@@ -21,6 +21,6 @@
 #define HEATSHRINK_DEBUGGING_LOGS 0
 
 /* Use indexing for faster compression. (This requires additional space.) */
-#define HEATSHRINK_USE_INDEX 1
+#define HEATSHRINK_USE_INDEX 0
 
 #endif
